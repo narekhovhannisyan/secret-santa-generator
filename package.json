@@ -1,15 +1,15 @@
 {
-  "name": "secret-santa",
+  "name": "secret-santa-generator",
   "description": "Generate secret santa gift table.",
   "version": "0.0.1",
   "author": "Narek Hovhannisyan",
   "bugs": {
-    "url": "https://github.com/narekhovhannisyan/secret-santa/issues"
+    "url": "https://github.com/narekhovhannisyan/secret-santa-generator/issues"
   },
   "devDependencies": {
     "fixpack": "2.3.1"
   },
-  "homepage": "https://github.com/narekhovhannisyan/secret-santa#readme",
+  "homepage": "https://github.com/narekhovhannisyan/secret-santa-generator#readme",
   "keywords": [
     "gift",
     "name",
@@ -19,7 +19,7 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/narekhovhannisyan/secret-santa.git"
+    "url": "git+https://github.com/narekhovhannisyan/secret-santa-generator.git"
   },
   "scripts": {
     "fix-package": "fixpack"
