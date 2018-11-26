@@ -23,17 +23,17 @@ function shuffle (array) {
  *  Otherwise it returns true.
  */
 function shuffleIsValid (array, shuffledArray) {
-  let isSame = true
+  let isValid = true
   for (let i = 0; i <= array.length - 1; i++) {
     for (let j = 0; j <= shuffledArray.length - 1; j++) {
       if (array[i] === shuffledArray[j] && i === j) {
-        isSame = false
+        isValid = false
         break
       }
     }
   }
 
-  return isSame
+  return isValid
 }
 
 /**
