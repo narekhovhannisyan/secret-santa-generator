@@ -6,9 +6,6 @@
   "bugs": {
     "url": "https://github.com/narekhovhannisyan/secret-santa-generator/issues"
   },
-  "devDependencies": {
-    "fixpack": "2.3.1"
-  },
   "homepage": "https://github.com/narekhovhannisyan/secret-santa-generator#readme",
   "keywords": [
     "gift",
@@ -17,11 +14,9 @@
     "secret"
   ],
   "license": "ISC",
+  "main": "./src/secret-santa.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/narekhovhannisyan/secret-santa-generator.git"
-  },
-  "scripts": {
-    "fix-package": "fixpack"
   }
 }
