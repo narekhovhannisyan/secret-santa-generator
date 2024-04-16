@@ -25,6 +25,10 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - name: Install dependencies
         run: npm ci
+      - name: Initalize git user
+        run:
+            git config --global user.email "narhovhannisian@gmail.com"
+            git config --global user.name "Release workflow"
       - name: Check if release is a pre-release
         id: check_pre_release
         run: echo "::set-output name=is_pre_release::${{ github.event.release.prerelease }}"
