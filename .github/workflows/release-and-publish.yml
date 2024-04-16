@@ -29,8 +29,10 @@ jobs:
         run: git config --global user.email "narhovhannisian@gmail.com"
       - name: Initalize git user name
         run: git config --global user.name "Release workflow"
-      - name: Checkout master
-        run: git checkout master && git pull origin master
+      - name: Initialize npm config
+        run: npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
+        env:
+          NPM_TOKEN: ${{secrets.NPM_TOKEN}}
       - name: Check if release is a pre-release
         id: check_pre_release
         run: echo "::set-output name=is_pre_release::${{ github.event.release.prerelease }}"
