@@ -18,5 +18,11 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/narekhovhannisyan/secret-santa-generator.git"
+  },
+  "scripts": {
+    "release": "release-it"
+  },
+  "devDependencies": {
+    "release-it": "^16.3.0"
   }
 }

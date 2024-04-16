@@ -1,0 +1,40 @@
+name: Release and Publish NPM
+on:
+  release:
+    types: [created]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: npm ci
+      - run: npm test
+  publish-npm:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          registry-url: https://registry.npmjs.org/
+      - name: Install dependencies
+        run: npm ci
+      - name: Check if release is a pre-release
+        id: check_pre_release
+        run: echo "::set-output name=is_pre_release::${{ github.event.release.prerelease }}"
+      - name: Publish to npm
+        if: steps.check_pre_release.outputs.is_pre_release == 'true'
+        run: npm publish --tag beta
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
+      - name: Publish to npm
+        if: steps.check_pre_release.outputs.is_pre_release != 'true'
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
