@@ -2,10 +2,7 @@
   "git": {
     "requireBranch": "master",
     "commitMessage": "chore(package): release v${version}"
-  },
-  "hooks": {
-    "before:init": ["git pull"]
-  },
+  },  
   "github": {
     "release": true
   },
