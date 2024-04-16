@@ -1,12 +1,31 @@
 {
-  "git": {
-    "requireBranch": "master",
-    "commitMessage": "chore(package): release v${version}"
-  },  
-  "github": {
-    "release": true
+  "git": { 
+    "requireBranch": false,
+    "requireUpstream": true,
+    "requireCommits": false,
+    "requireCommitsFail": true,
+    "commitsPath": "",
+    "addUntrackedFiles": false,
+    "commit": true,
+    "commitMessage": "Release ${version}",
+    "commitArgs": [],
+    "tag": true,
+    "tagExclude": null,
+    "tagName": null,
+    "tagMatch": null,
+    "getLatestTagFromAllRefs": false,
+    "tagAnnotation": "Release ${version}",
+    "tagArgs": [],
+    "push": true,
+    "pushArgs": ["--follow-tags"],
+    "pushRepo": ""
+  },
+  "github": {    
+    "tokenRef": "GITHUB_TOKEN"
   },
   "npm": {
-    "release": true
+    "publish": true,
+    "publishPath": ".",
+    "allowSameVersion": true
   }
 }
