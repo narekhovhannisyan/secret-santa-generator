@@ -30,11 +30,11 @@ jobs:
         run: echo "::set-output name=is_pre_release::${{ github.event.release.prerelease }}"
       - name: Publish to npm
         if: steps.check_pre_release.outputs.is_pre_release == 'true'
-        run: npm publish --tag beta
+        run: npm release && npm publish --tag beta
         env:
           NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
       - name: Publish to npm
         if: steps.check_pre_release.outputs.is_pre_release != 'true'
-        run: npm publish
+        run: npm release && npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
