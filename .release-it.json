@@ -5,9 +5,13 @@
     "commit": true,
     "commitMessage": "Release ${version}",        
     "push": true,
-    "pushArgs": ["--follow-tags"]
+    "pushArgs": ["--follow-tags"],
+    "tag": false
   },
   "github": {    
     "tokenRef": "GITHUB_TOKEN"
-  } 
+  },
+  "npm": {
+    "publish": false
+  }
 }
