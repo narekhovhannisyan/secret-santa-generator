@@ -1,31 +1,13 @@
 {
   "git": { 
     "requireBranch": false,
-    "requireUpstream": true,
-    "requireCommits": false,
-    "requireCommitsFail": true,
-    "commitsPath": "",
-    "addUntrackedFiles": false,
+    "requireUpstream": true,  
     "commit": true,
-    "commitMessage": "Release ${version}",
-    "commitArgs": [],
-    "tag": true,
-    "tagExclude": null,
-    "tagName": null,
-    "tagMatch": null,
-    "getLatestTagFromAllRefs": false,
-    "tagAnnotation": "Release ${version}",
-    "tagArgs": [],
+    "commitMessage": "Release ${version}",        
     "push": true,
-    "pushArgs": ["--follow-tags"],
-    "pushRepo": ""
+    "pushArgs": ["--follow-tags"]
   },
   "github": {    
     "tokenRef": "GITHUB_TOKEN"
-  },
-  "npm": {
-    "publish": true,
-    "publishPath": ".",
-    "allowSameVersion": true
-  }
+  } 
 }
