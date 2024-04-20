@@ -33,16 +33,7 @@ jobs:
       - name: Initalize git user name
         run: git config --global user.name "Release commit workflow"
 
-      - name: Check if release is a pre-release
-        id: check_pre_release
-        run: echo "::set-output name=is_pre_release::${{github.event.release.prerelease}}"
-      - name: Init beta release commit
-        if: steps.check_pre_release.outputs.is_pre_release == 'true'
-        run: npm run release -- --ci
-        env:
-          GITHUB_TOKEN: ${{secrets.github_token}}
       - name: Init release commit
-        if: steps.check_pre_release.outputs.is_pre_release != 'true'
         run: npm run release -- --ci
         env:
           GITHUB_TOKEN: ${{secrets.github_token}}
