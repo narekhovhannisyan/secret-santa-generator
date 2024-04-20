@@ -6,10 +6,12 @@
     "commitMessage": "Release ${version}",        
     "push": true,
     "pushArgs": ["--follow-tags"],
-    "tag": false
+    "tag": false,
+    "getLatestTagFromAllRefs": true
   },
   "github": {    
-    "tokenRef": "GITHUB_TOKEN"
+    "tokenRef": "GITHUB_TOKEN",
+    "preRelease": true
   },
   "npm": {
     "publish": false
