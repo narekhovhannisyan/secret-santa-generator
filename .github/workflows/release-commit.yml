@@ -12,7 +12,7 @@ jobs:
           node-version: 18
       - run: npm ci
       # - run: npm test
-  publish-npm:
+  create-release-commit:
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -29,7 +29,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Initalize git user email
-        run: git config --global user.email "${{env.RELEASE_USER_EMAIL}}"
+        run: git config --global user.email "${{vars.RELEASE_USER_EMAIL}}"
       - name: Initalize git user name
         run: git config --global user.name "Release commit workflow"
 
