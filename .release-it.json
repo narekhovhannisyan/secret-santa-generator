@@ -12,5 +12,8 @@
   "github": {    
     "tokenRef": "GITHUB_TOKEN",
     "preRelease": true
+  },
+  "npm": {
+    "publish": false
   }
 }
