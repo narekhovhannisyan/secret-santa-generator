@@ -23,7 +23,7 @@
     "pushRepo": ""
   },
   "github": {    
-    "release": false,
+    "release": true,
     "releaseName": "Release ${version}",
     "releaseNotes": null,
     "autoGenerate": false,
