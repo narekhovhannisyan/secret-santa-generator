@@ -6,8 +6,7 @@
     "commitMessage": "Release ${version}",
     "push": true,
     "pushArgs": ["--follow-tags"],
-    "tag": false,
-    "getLatestTagFromAllRefs": true
+    "tag": false
   },
   "github": {    
     "tokenRef": "GITHUB_TOKEN",

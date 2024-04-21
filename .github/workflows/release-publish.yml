@@ -18,11 +18,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: master
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 18
           registry-url: https://registry.npmjs.org/
@@ -40,7 +40,7 @@ jobs:
           NPM_TOKEN: ${{secrets.NPM_TOKEN}}
       - name: Check if release is a pre-release
         id: check_pre_release
-        run: echo "::set-output name=is_pre_release::${{github.event.release.prerelease}}"
+        run: echo "{name}=${{github.event.release.prerelease}}" >> $GITHUB_OUTPUT
         
       - name: Publish to npm
         if: steps.check_pre_release.outputs.is_pre_release == 'true'
