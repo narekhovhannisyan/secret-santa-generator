@@ -1,18 +1,14 @@
 {
-  "git": { 
-    "requireBranch": false,
-    "requireUpstream": true,  
+  "git": {
+    "requireCleanWorkingDir": false,
     "commit": true,
     "commitMessage": "Release ${version}",
     "push": true,
-    "pushArgs": ["--follow-tags"],
-    "tag": false
+    "tagName": "v${version}"
   },
-  "github": {    
+  "github": {
+    "release": true,
     "tokenRef": "GITHUB_TOKEN",
     "preRelease": true
-  },
-  "npm": {
-    "publish": false
   }
 }
