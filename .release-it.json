@@ -1,14 +1,15 @@
 {
-  "git": { 
+  "git": {
     "requireBranch": false,
-    "requireUpstream": true,  
+    "requireUpstream": true,
     "commit": true,
     "commitMessage": "Release ${version}",
     "push": true,
     "pushArgs": ["--follow-tags"],
     "tag": false
   },
-  "github": {    
+  "github": {
+    "release": true,
     "tokenRef": "GITHUB_TOKEN",
     "preRelease": true
   },

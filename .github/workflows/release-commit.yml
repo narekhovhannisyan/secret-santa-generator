@@ -1,7 +1,9 @@
 name: Release commit
+
 on:
   release:
     types: [published]
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -12,6 +14,7 @@ jobs:
           node-version: 18
       - run: npm ci
       # - run: npm test
+
   create-release-commit:
     needs: build
     runs-on: ubuntu-latest
@@ -20,6 +23,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: master
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -28,9 +32,11 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-      - name: Initalize git user email
-        run: git config --global user.email "${{vars.RELEASE_USER_EMAIL}}"
-      - name: Initalize git user name
+
+      - name: Initialize git user email
+        run: git config --global user.email "${{ vars.RELEASE_USER_EMAIL }}"
+
+      - name: Initialize git user name
         run: git config --global user.name "Release commit workflow"
 
       - name: Create release branch and set upstream
@@ -41,14 +47,20 @@ jobs:
           git push --set-upstream origin $BRANCH
           echo "::set-output name=branch::$BRANCH"
 
+      - name: Check Git Status Before
+        run: git status
+        
       - name: Bump version and push changes using release-it
-        run: npm run release -- --ci ${{github.event.release.tag_name}}
+        run: npm run release -- --ci ${GITHUB_REF##*/}
         env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+      - name: Check Git Status After
+        run: git status
 
       - name: Push changes to release branch
-        run: |
-          git push origin ${{ steps.release.outputs.branch }}
+        run: git push origin ${{ steps.release.outputs.branch }}
+
       - name: Create Pull Request
         id: create_pr
         uses: peter-evans/create-pull-request@v5
