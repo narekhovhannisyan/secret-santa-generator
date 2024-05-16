@@ -33,7 +33,25 @@ jobs:
       - name: Initalize git user name
         run: git config --global user.name "Release commit workflow"
 
-      - name: Init release commit
-        run: npm run release -- --ci ${{github.event.release.tag_name}}
+      - name: Create release branch and bump version
+        id: release
+        run: |
+          BRANCH="release-$(date +'%Y%m%d%H%M%S')"
+          git checkout -b $BRANCH
+          npm run release -- --ci ${{github.event.release.tag_name}}
+          echo "::set-output name=branch::$BRANCH"
         env:
-          GITHUB_TOKEN: ${{secrets.github_token}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      - name: Push changes to release branch
+        run: |
+          git push origin ${{ steps.release.outputs.branch }}
+      - name: Create Pull Request
+        id: create_pr
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ steps.release.outputs.branch }}
+          base: main
+          title: "Release $(date +'%Y-%m-%d %H:%M:%S')"
+          body: "Automated release of version $(date +'%Y-%m-%d %H:%M:%S')"
+          draft: false
