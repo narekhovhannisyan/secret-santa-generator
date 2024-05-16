@@ -55,7 +55,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ steps.release.outputs.branch }}
-          base: main
+          base: master
           title: "Release $(date +'%Y-%m-%d %H:%M:%S')"
           body: "Automated release of version $(date +'%Y-%m-%d %H:%M:%S')"
           draft: false
