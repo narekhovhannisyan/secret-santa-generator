@@ -9,7 +9,7 @@
     "tag": false
   },
   "github": {
-    "release": true,
+    "release": false,
     "tokenRef": "GITHUB_TOKEN",
     "preRelease": true
   },
