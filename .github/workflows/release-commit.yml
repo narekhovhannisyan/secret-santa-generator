@@ -33,15 +33,19 @@ jobs:
       - name: Initalize git user name
         run: git config --global user.name "Release commit workflow"
 
-      - name: Create release branch and bump version
+      - name: Create release branch and set upstream
         id: release
         run: |
           BRANCH="release-$(date +'%Y%m%d%H%M%S')"
           git checkout -b $BRANCH
-          npm run release -- --ci ${{github.event.release.tag_name}}
+          git push --set-upstream origin $BRANCH
           echo "::set-output name=branch::$BRANCH"
+
+      - name: Bump version and push changes using release-it
+        run: npm run release -- --ci ${{github.event.release.tag_name}}
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
       - name: Push changes to release branch
         run: |
           git push origin ${{ steps.release.outputs.branch }}
