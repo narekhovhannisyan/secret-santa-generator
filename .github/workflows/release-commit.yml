@@ -39,13 +39,12 @@ jobs:
       - name: Initialize git user name
         run: git config --global user.name "Release commit workflow"
 
-      - name: Create release branch and set upstream
-        id: release
+      - name: Create release branch
         run: |
           BRANCH="release-${{github.event.release.tag_name}}"
           git checkout -b $BRANCH
           git push --set-upstream origin $BRANCH
-          echo "::set-output name=branch::$BRANCH"
+          echo "branch=$BRANCH" >> $GITHUB_ENV
 
       - name: Check Git Status Before
         run: git status
@@ -53,23 +52,5 @@ jobs:
       - name: Bump version and push changes using release-it
         run: |
           npm run release -- --ci ${{github.event.release.tag_name}}
-          git branch
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        
-      - name: Check Git Status After
-        run: git status
-
-      - name: Push changes to release branch
-        run: git push origin ${{ steps.release.outputs.branch }}
-
-      - name: Create Pull Request
-        id: create_pr
-        uses: peter-evans/create-pull-request@v5
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ steps.release.outputs.branch }}
-          base: master
-          title: "Release $(date +'%Y-%m-%d %H:%M:%S')"
-          body: "Automated release of version $(date +'%Y-%m-%d %H:%M:%S')"
-          draft: false
