@@ -56,13 +56,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create Pull Request
-        id: create_pr
-        uses: peter-evans/create-pull-request@v5
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          branch: release-${{github.event.release.tag_name}}
-          base: master
-          title: "Release ${{github.event.release.tag_name}}"
-          body: "Automated release of version ${{github.event.release.tag_name}}"
-          draft: false
+      - name: Create pull request
+        run: gh pr create -B master -H release-${{github.event.release.tag_name}} --title 'Release ${{github.event.release.tag_name}}' --body 'Created by Github action'
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
