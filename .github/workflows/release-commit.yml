@@ -52,5 +52,17 @@ jobs:
       - name: Bump version and push changes using release-it
         run: |
           npm run release -- --ci ${{github.event.release.tag_name}}
+          git branch
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Pull Request
+        id: create_pr
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ steps.release.outputs.branch }}
+          base: master
+          title: "Release ${{github.event.release.tag_name}}"
+          body: "Automated release of version ${{github.event.release.tag_name}}"
+          draft: false
