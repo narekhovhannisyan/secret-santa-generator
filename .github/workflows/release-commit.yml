@@ -4,6 +4,9 @@ on:
   release:
     types: [published]
 
+env: 
+  PR_BRANCH_NAME: release-${{github.event.release.tag_name}}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -41,22 +44,17 @@ jobs:
 
       - name: Create release branch
         run: |
-          BRANCH="release-${{github.event.release.tag_name}}"
-          git checkout -b $BRANCH
-          git push --set-upstream origin $BRANCH
-          echo "branch=$BRANCH" >> $GITHUB_ENV
-
-      - name: Check Git Status Before
-        run: git status
+          git checkout -b $PR_BRANCH_NAME
+          git push --set-upstream origin $PR_BRANCH_NAME
+          echo "branch=$PR_BRANCH_NAME" >> $GITHUB_ENV
         
       - name: Bump version and push changes using release-it
         run: |
           npm run release -- --ci ${{github.event.release.tag_name}}
-          git branch
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create pull request
-        run: gh pr create -B master -H release-${{github.event.release.tag_name}} --title 'Release ${{github.event.release.tag_name}}' --body 'Created by Github action'
+        run: gh pr create -B master -H $PR_BRANCH_NAME --title 'Release ${{github.event.release.tag_name}}' --body '${{github.event.release.body}}'
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
