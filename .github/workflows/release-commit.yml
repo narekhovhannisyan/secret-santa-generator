@@ -51,7 +51,9 @@ jobs:
         run: git status
         
       - name: Bump version and push changes using release-it
-        run: npm run release -- --ci ${{github.event.release.tag_name}}
+        run: |
+          npm run release -- --ci ${{github.event.release.tag_name}}
+          git branch
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
