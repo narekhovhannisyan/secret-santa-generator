@@ -1,5 +1,6 @@
 # secret-santa
 
+
 ## secretSanta(namesArray).
 
  * `namesArray` is an array containing grantees names.
