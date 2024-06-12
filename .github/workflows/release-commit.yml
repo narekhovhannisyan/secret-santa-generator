@@ -8,7 +8,7 @@ env:
   PRE_RELEASE: ${{ github.event.release.prerelease}}
 
 jobs:
-  build:
+  release-commit-pr:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -40,13 +40,10 @@ jobs:
       - name: Fetch latest changes
         run: git fetch --all
       
-      - name: Merge main to release
-        uses: devmasx/merge-branch@master
-        with:
-          type: now
-          from_branch: main
-          target_branch: release
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Update release branch
+        run: |
+          git checkout ${{ vars.RELEASE_BRANCH_NAME }}
+          git pull origin main
 
       - name: Checkout to release branch if it's not a pre-release
         if: ${{!env.PRE_RELEASE}}
