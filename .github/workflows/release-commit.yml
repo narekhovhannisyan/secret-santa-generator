@@ -42,7 +42,7 @@ jobs:
       
       - name: Pull latest changes from main
         run: |
-          git fetch origin main
+          git fetch origin/main
           git checkout main
           git pull origin main
 
