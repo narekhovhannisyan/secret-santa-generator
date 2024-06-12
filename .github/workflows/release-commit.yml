@@ -54,9 +54,8 @@ jobs:
 
       - name: Checkout to release branch if it's not a pre-release
         if: steps.check_pre_release.outputs.is_pre_release != 'true'
-        uses: actions/checkout@v4
-        with:
-          ref: ${{vars.RELEASE_BRANCH_NAME}}
+        run: |
+          git checkout release
 
       - name: Checkout to new release branch
         run: |
