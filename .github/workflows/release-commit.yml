@@ -41,7 +41,7 @@ jobs:
         run: git fetch --all
 
       - name: Checkout to release branch if it's not a pre-release
-        if: ${{env.PRE_RELEASE}}
+        if: ${{!env.PRE_RELEASE}}
         run: git checkout ${{ vars.RELEASE_BRANCH_NAME }}
 
       - name: Checkout to new release branch
