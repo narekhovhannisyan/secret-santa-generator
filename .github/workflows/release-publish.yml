@@ -55,7 +55,6 @@ jobs:
 
       - name: Checkout to release branch
         run: |
-          git fetch origin/release
           git pull origin/release
           git checkout ${{ vars.RELEASE_BRANCH_NAME }}
 
