@@ -39,12 +39,6 @@ jobs:
 
       - name: Fetch latest changes
         run: git fetch --all
-      
-      - name: Pull latest changes from main
-        run: |
-          git fetch origin/main
-          git checkout main
-          git pull origin main
 
       - name: Checkout to release branch if it's not a pre-release
         if: ${{!env.PRE_RELEASE}}
