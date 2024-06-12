@@ -55,6 +55,7 @@ jobs:
       - name: Checkout to release branch if it's not a pre-release
         if: steps.check_pre_release.outputs.is_pre_release != 'true'
         run: |
+          git fetch --all
           git checkout release
 
       - name: Checkout to new release branch
