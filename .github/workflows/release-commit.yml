@@ -4,7 +4,7 @@ on:
     types: [published]
 
 env: 
-  PR_BRANCH_NAME: release-${{github.event.release.tag_name}}
+  PR_BRANCH_NAME: release-${{ github.event.release.tag_name }}
 
 jobs:
   build:
@@ -40,11 +40,12 @@ jobs:
         id: check_pre_release
         run: echo "{name}=${{github.event.release.prerelease}}" >> $GITHUB_OUTPUT
 
+      - name: Fetch latest changes
+        run: git fetch --all
+
       - name: Checkout to release branch if it's not a pre-release
         if: steps.check_pre_release.outputs.is_pre_release != 'true'
-        run: |
-          git fetch --all
-          git checkout release
+        run: git checkout ${{ vars.RELEASE_BRANCH_NAME }}
 
       - name: Checkout to new release branch
         run: |
@@ -54,7 +55,7 @@ jobs:
         
       - name: Bump version and push changes using release-it
         run: |
-          npm run release -- --ci ${{github.event.release.tag_name}}
+          npm run release -- --ci ${{ github.event.release.tag_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
