@@ -40,12 +40,11 @@ jobs:
       - name: Fetch latest changes
         run: git fetch --all
       
-      - name: Update release branch
+      - name: Pull latest changes from main
         run: |
-          git checkout ${{ vars.RELEASE_BRANCH_NAME }}
+          git fetch origin main
+          git checkout main
           git pull origin main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Checkout to release branch if it's not a pre-release
         if: ${{!env.PRE_RELEASE}}
