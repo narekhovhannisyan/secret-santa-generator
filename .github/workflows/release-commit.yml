@@ -8,7 +8,7 @@ env:
   PRE_RELEASE: ${{ github.event.release.prerelease}}
 
 jobs:
-  build:
+  release-commit-pr:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
