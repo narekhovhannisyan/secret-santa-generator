@@ -15,23 +15,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
+          registry-url: https://registry.npmjs.org/
 
       - name: Install dependencies
         run: npm ci
 
       # - name: Run unit tests
       #   run: npm test
-
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          ref: ${{vars.RELEASE_BRANCH_NAME}}
-          
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
-          registry-url: https://registry.npmjs.org/
 
       - name: Install dependencies
         run: npm ci
@@ -65,8 +55,9 @@ jobs:
 
       - name: Checkout to release branch
         run: |
-          git fetch --all
-          git checkout ${{vars.RELEASE_BRANCH_NAME}}
+          git fetch origin/release
+          git pull origin/release
+          git checkout ${{ vars.RELEASE_BRANCH_NAME }}
 
       - name: Publish to npm (pre-release)
         if: env.IS_PRE_RELEASE == 'true'
